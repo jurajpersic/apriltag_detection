@@ -6,7 +6,6 @@ The package depends on AprilTag3 library and apriltag_ros ROS wrapper.
 Install them in a new workspace by using
 
 ```
-source /opt/ros/$ROS_DISTRO/setup.bash  # Source your ROS distro 
 mkdir -p ~/apriltag_ws/src                # Make a new workspace 
 cd ~/apriltag_ws/src                      # Navigate to the source space
 git clone https://github.com/AprilRobotics/apriltag.git      # Clone Apriltag library
