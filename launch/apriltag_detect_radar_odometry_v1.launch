@@ -32,4 +32,5 @@
     <param name="publish_tag_detections_image" type="bool" value="true" />      <!-- default: false -->
   </node>
 
+ <node pkg="tf2_ros" type="static_transform_publisher" name="map_to_camera" args="0 0 0 0.5000   -0.5000    0.5000   -0.5000  map camera" />
 </launch>
