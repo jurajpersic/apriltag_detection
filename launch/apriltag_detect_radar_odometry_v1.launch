@@ -2,12 +2,12 @@
 
   <!-- Left camera -->
 
-  <!--<node pkg="camera_utils" type="pub_camera_info.py" name="pub_camera_info" output="screen">
+  <node pkg="apriltag_detection" type="pub_camera_info.py" name="pub_camera_info" output="screen">
     <param name="calib" value="$(find apriltag_detection)/config/realsense_v1.yaml" />
-    <remap from="image_raw" to="/camera/image_raw" />
-    <remap from="camera_info" to="/camera/camera_info" />
+    <remap from="image_raw" to="/camera/color/image_raw" />
+    <remap from="camera_info" to="/camera/color/camera_info" />
   </node>
-  -->
+
 
   <node pkg="image_proc" type="image_proc" name="image_rectification" output="screen" ns="camera/color">
     <remap from="image_raw" to="image_raw" />
@@ -22,15 +22,16 @@
   <rosparam command="load" file="$(find apriltag_detection)/config/tags_radar_odometry.yaml"  />
 
 
- <node pkg="apriltag_ros" type="apriltag_ros_continuous_node" name="camera_apriltag_detector" clear_params="true" output="screen" >
+ <node pkg="apriltag_ros" type="apriltag_ros_continuous_node" name="camera_apriltag_detector" clear_params="true" output="screen" ns="camera/color" >
     <!-- Remap topics from those used in code to those on the ROS network -->
   <rosparam command="load" file="$(find apriltag_detection)/config/settings_mono.yaml" />
   <rosparam command="load" file="$(find apriltag_detection)/config/tags_radar_odometry.yaml"  />
-    <remap from="image_rect" to="camera/color/image_rect" />
-    <remap from="camera_info" to="camera/color/camera_info" />
+    <remap from="image_rect" to="image_rect" />
+    <remap from="camera_info" to="camera_info" />
     <param name="camera_frame" type="str" value="camera" />
     <param name="publish_tag_detections_image" type="bool" value="true" />      <!-- default: false -->
   </node>
 
  <node pkg="tf2_ros" type="static_transform_publisher" name="map_to_camera" args="0 0 0 0.5000   -0.5000    0.5000   -0.5000  map camera" />
+ <node pkg="tf2_ros" type="static_transform_publisher" name="map_to_radar" args="0 0 0 0.000   -0.000    0.000  map radar" />
 </launch>
